@@ -1,0 +1,40 @@
+application:
+  subdomain: livebook
+  multi_instance: false
+  # Livebook has a single shared password (LIVEBOOK_PASSWORD) and no user
+  # accounts / self-registration, so it must NOT be exposed via public_path;
+  # the platform login gate stays the first line of defense.
+  upstreams:
+    - location: /package-licenses/
+      backend: file:///lzcapp/pkg/content/licenses/
+    - location: /
+      backend: http://livebook:8080/
+
+services:
+  livebook:
+    # upstream: ghcr.io/livebook-dev/livebook:0.19.10 (official image)
+    image: ghcr.1ms.run/livebook-dev/livebook:0.19.10
+    environment:
+      # Without LIVEBOOK_PASSWORD the access token is only printed to the
+      # container logs (user would be locked out) - always set it.
+      - LIVEBOOK_PASSWORD={{ .U.web_password }}
+      - LIVEBOOK_DATA_PATH=/data
+      - TZ=Asia/Shanghai
+    binds:
+      - /lzcapp/var/data:/data
+
+usage: |
+  Livebook 是一个交互式协作代码笔记本：支持 Elixir、Python 等多种运行时，
+  适合写技术文档、探索数据与团队协作。
+
+  使用方法：
+  1. 首次部署时在部署配置里查看/修改「Livebook 访问密码」（已自动生成随机值）。
+  2. 打开应用，输入该密码即可进入笔记本界面。
+  3. 笔记本与配置保存在 /lzcapp/var/data，卸载应用会一并删除，请定期备份。
+
+  数据与安全：
+  - Livebook 为单用户应用，只有一个共享访问密码，无多账号体系，
+    因此本包不对外开放未登录访问（保持平台入口鉴权）。
+
+  说明：
+  - 本包未做实机验证，功能以官方文档为准，遇到问题请反馈。

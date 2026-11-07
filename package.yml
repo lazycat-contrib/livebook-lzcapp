@@ -1,0 +1,18 @@
+package: community.lazycat.app.livebook
+name: livebook
+version: 0.19.10
+description: "Collaborative and interactive code notebooks for Elixir, Python and more, with rich markdown and data views."
+min_os_version: "1.5.0"
+homepage: https://github.com/livebook-dev/livebook
+author: livebook-dev
+license: Apache-2.0
+permissions:
+  required:
+    - net.internet
+locales:
+  zh:
+    name: Livebook 笔记本
+    description: "交互式协作代码笔记本：支持 Elixir、Python 等多种运行时，富文本与数据可视化。"
+  en:
+    name: Livebook
+    description: "Interactive collaborative code notebooks for Elixir, Python and more."

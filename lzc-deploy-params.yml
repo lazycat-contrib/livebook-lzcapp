@@ -1,0 +1,13 @@
+params:
+  - id: web_password
+    type: secret
+    name: "Livebook 访问密码"
+    description: "登录 Livebook 网页界面的密码（自动生成，可在部署时修改）"
+    default_value: "$random(len=20)"
+    optional: false
+
+locales:
+  zh:
+    web_password:
+      name: "Livebook 访问密码"
+      description: "登录 Livebook 网页界面的密码（自动生成，可修改）"
