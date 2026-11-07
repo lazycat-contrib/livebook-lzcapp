@@ -9,10 +9,9 @@ application:
       backend: file:///lzcapp/pkg/content/licenses/
     - location: /
       backend: http://livebook:8080/
-
 services:
   livebook:
-    # upstream: ghcr.io/livebook-dev/livebook:0.19.10 (official image)
+    # upstream: ghcr.io/livebook-dev/livebook:0.19.10
     image: ghcr.1ms.run/livebook-dev/livebook:0.19.10
     environment:
       # Without LIVEBOOK_PASSWORD the access token is only printed to the
@@ -22,7 +21,6 @@ services:
       - TZ=Asia/Shanghai
     binds:
       - /lzcapp/var/data:/data
-
 usage: |
   Livebook 是一个交互式协作代码笔记本：支持 Elixir、Python 等多种运行时，
   适合写技术文档、探索数据与团队协作。
